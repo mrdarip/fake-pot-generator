@@ -12,7 +12,12 @@ $fn=100;
 twoThickness = thickness * 2;
 inDiam = diameter - twoThickness;
 
+difference(){
 inPot();
+
+//slice for viewing
+        cube([inDiam,inDiam/2,realH]);
+}
 
 module pot(){
     difference(){
@@ -25,7 +30,7 @@ module pot(){
 
 module inPot(){
 
-    //pot with drain
+    //pot with hole
     difference(){
         dcylinder(h = realH, d = inDiam-tolerance,s = l);
 
@@ -33,16 +38,28 @@ module inPot(){
             dcylinder(h = realH, d = inDiam - twoThickness, s= l);
 
 
+        //drain hole
         translate([inDiam/2,inDiam/2,-tolerance/2])
-        cylinder(h = thickness+tolerance, d = drainOd);
+            cylinder(h = thickness+tolerance, d = drainOd);
     }
 
+
     //drain connector
-    translate([inDiam/2,inDiam/2,0])
-    difference() {
-        circle(d=drainId + thickness);
-        circle(d=drainId);
-    }
+        //V
+        color("red")
+        translate([inDiam/2,inDiam/2,0])
+        difference() {
+            cylinder(d1=drainId + thickness, d2 = drainOd+ thickness, h = drainOd -drainId);
+            cylinder(d1=drainId, d2= drainOd, h= drainOd -drainId);
+        }
+
+        //Drain neck
+        translate([inDiam/2,inDiam/2,0])
+        difference(){
+            cylinder(d=drainOd+thickness, h = drainOd -drainId);
+            cylinder(d=drainOd, h = drainOd -drainId);
+        }
+
     
 }
 
