@@ -3,25 +3,34 @@ fakeH = 100;
 thickness= 3;
 l=2;
 diameter = 100;
+drainOd = 10;
+drainId = 5;
 
 $fn=100;
+
+twoThickness = thickness * 2;
+inDiam = diameter - twoThickness;
 
 inPot();
 
 module pot(){
     difference(){
-    dcylinder(h = fakeH, d = diameter,s = l);
+        dcylinder(h = fakeH, d = diameter,s = l);
         
         translate([thickness,thickness,thickness])
-        dcylinder(h = fakeH, d = diameter-thickness*2, s= l);
+        dcylinder(h = fakeH, d = inDiam, s= l);
     }
 }
 
 module inPot(){
     difference(){
-        dcylinder(h = realH, d = diameter-thickness*2,s = l);
+        dcylinder(h = realH, d = inDiam,s = l);
         translate([thickness,thickness,thickness])
-            dcylinder(h = realH, d = diameter-thickness*4, s= l);
+            dcylinder(h = realH, d = inDiam - twoThickness, s= l);
+
+
+        translate([inDiam/2,inDiam/2,0])
+        cylinder(h = thickness, d = drainOd);
     }
 }
 
