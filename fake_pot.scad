@@ -3,7 +3,7 @@ fakeH = 100;
 thickness= 3;
 l=2;
 diameter = 100;
-drainOd = 10;
+drainOd = 15;
 drainId = 5;
 tolerance = 0.1;
 
@@ -19,13 +19,16 @@ module pot(){
         dcylinder(h = fakeH, d = diameter,s = l);
         
         translate([thickness,thickness,thickness])
-        dcylinder(h = fakeH, d = inDiam, s= l);
+            dcylinder(h = fakeH, d = inDiam, s= l);
     }
 }
 
 module inPot(){
+
+    //pot with drain
     difference(){
         dcylinder(h = realH, d = inDiam-tolerance,s = l);
+
         translate([thickness,thickness,thickness])
             dcylinder(h = realH, d = inDiam - twoThickness, s= l);
 
@@ -33,6 +36,14 @@ module inPot(){
         translate([inDiam/2,inDiam/2,-tolerance/2])
         cylinder(h = thickness+tolerance, d = drainOd);
     }
+
+    //drain connector
+    translate([inDiam/2,inDiam/2,0])
+    difference() {
+        circle(d=drainId + thickness);
+        circle(d=drainId);
+    }
+    
 }
 
 module dcylinder(d,h,s){
