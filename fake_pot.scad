@@ -1,16 +1,27 @@
 realH = 50;
 fakeH = 100;
 thickness= 3;
+l=2;
 diameter = 100;
 
-dcylinder(diameter, fakeH, 10);
+$fn=100;
+
+inPot();
 
 module pot(){
     difference(){
-    cylinder(h = fakeH, d = diameter);
+    dcylinder(h = fakeH, d = diameter,s = l);
         
-        translate([0,0,thickness])
-        cylinder(h = fakeH, d = diameter-thickness*2);
+        translate([thickness,thickness,thickness])
+        dcylinder(h = fakeH, d = diameter-thickness*2, s= l);
+    }
+}
+
+module inPot(){
+    difference(){
+        dcylinder(h = realH, d = diameter-thickness*2,s = l);
+        translate([thickness,thickness,thickness])
+            dcylinder(h = realH, d = diameter-thickness*4, s= l);
     }
 }
 
