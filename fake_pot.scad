@@ -7,6 +7,8 @@ diameter = 100;
 drainId = 5;
 tolerance = 0.4;
 
+nHoles = 6;
+
 drainOd = drainId + thickness * 4 + tolerance * 2;
 
 
@@ -54,7 +56,6 @@ module pot(){
 }
 
 module inPot(){
-
     //pot with hole
     difference(){
         translate([tolerance,tolerance,0])
@@ -71,8 +72,8 @@ module inPot(){
             cylinder(h = thickness+tolerance*2, d = drainOd);
 
             
-            for (i=[0:4-1]){
-                rotate([0,0,i*360/4 + 45])
+            for (i=[0:nHoles-1]){
+                rotate([0,0,i*360/nHoles])
                 translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
                 cylinder(h = thickness+tolerance*2, d = drainOd);
             }
@@ -84,8 +85,8 @@ module inPot(){
     drain_connector();
     
     translate([inDiam/2,inDiam/2,0])
-            for (i=[0:4-1]){
-                rotate([0,0,i*360/4 + 45])
+            for (i=[0:nHoles-1]){
+                rotate([0,0,i*360/nHoles])
                 translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
                 drain_connector();
             }
