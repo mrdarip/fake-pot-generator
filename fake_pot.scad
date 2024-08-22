@@ -81,6 +81,13 @@ module inPot(){
     }
 
     drain_connector();
+    
+    translate([inDiam/2,inDiam/2,0])
+            for (i=[0:4-1]){
+                rotate([0,0,i*360/4 + 12.5])
+                translate([inDiam,0,0])
+                drain_connector();
+            }
 }
 
 module drain_connector(){
