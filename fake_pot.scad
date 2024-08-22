@@ -44,13 +44,13 @@ module pot(){
 
         //draining holes
         translate([diameter/2,diameter/2,-tolerance/2]){
-            cylinder(h = thickness+tolerance, d = drainOd-thickness);
+            cylinder(h = thickness+tolerance, d = drainId+thickness*2);
 
 
             for (i=[0:nHoles-1]){
                 rotate([0,0,i*360/nHoles])
                 translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
-                cylinder(h = thickness+tolerance, d = drainOd-thickness);
+                cylinder(h = thickness+tolerance, d = drainId+thickness*2);
             }
         }
     }
@@ -73,14 +73,17 @@ module drain_downpipe(){
         cylinder(d=drainId+thickness * 2 + tolerance , h = thickness);
     }
 
-    
-    difference(){
-        cylinder(d1=drainId, h = (drainOd -drainId)/2);
+    translate([0,0,fakeH-realH - (drainOd -drainId)/2])
+    difference() {
+        cylinder(d1=drainId+thickness*2,d2= drainOd - tolerance, h = (drainOd -drainId)/2);
+        cylinder(d1=drainId,d2= drainOd - tolerance-thickness*2, h = (drainOd -drainId)/2);
+
     }
+    
 
     difference(){
-        cylinder(d=drainOd - tolerance, h = fakeH-realH);
-        cylinder(d=drainId+thickness * 2 + tolerance , h = fakeH-realH);
+        cylinder(d=drainId+thickness*2, h = fakeH-realH - (drainOd -drainId)/2);
+        cylinder(d=drainId , h = fakeH-realH - (drainOd -drainId)/2);
     }
 }
 
