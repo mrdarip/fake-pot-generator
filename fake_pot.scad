@@ -47,8 +47,18 @@ module pot(){
             cylinder(h = thickness+tolerance, d = drainOd-thickness);
     }
 
-    //Drain neck
     translate([diameter/2,diameter/2,0])
+        drain_downpipe();
+
+    translate([diameter/2,diameter/2,0])
+        for (i=[0:nHoles-1]){
+            rotate([0,0,i*360/nHoles])
+                translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
+            drain_downpipe();
+        }
+}
+
+module drain_downpipe(){
     difference(){
         cylinder(d=drainOd - tolerance, h = fakeH-realH + thickness);
         cylinder(d=drainId+thickness * 2 + tolerance , h = fakeH-realH + thickness);
@@ -82,14 +92,14 @@ module inPot(){
     }
 
     translate([inDiam/2,inDiam/2,0])
-    drain_connector();
+        drain_connector();
     
     translate([inDiam/2,inDiam/2,0])
-            for (i=[0:nHoles-1]){
-                rotate([0,0,i*360/nHoles])
-                translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
-                drain_connector();
-            }
+        for (i=[0:nHoles-1]){
+            rotate([0,0,i*360/nHoles])
+            translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
+            drain_connector();
+        }
 }
 
 module drain_connector(){
