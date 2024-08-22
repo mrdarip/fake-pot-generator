@@ -65,8 +65,19 @@ module inPot(){
 
 
         //drain hole
-        translate([inDiam/2,inDiam/2,-tolerance/2])
+
+        
+        translate([inDiam/2,inDiam/2,-tolerance/2]){
             cylinder(h = thickness+tolerance*2, d = drainOd);
+
+            
+            for (i=[0:4-1]){
+                rotate([0,0,i*360/4 + 45])
+                translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
+                cylinder(h = thickness+tolerance*2, d = drainOd);
+            }
+        }
+        
     }
 
     drain_connector();
