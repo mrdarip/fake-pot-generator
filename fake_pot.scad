@@ -80,12 +80,13 @@ module inPot(){
         
     }
 
+    translate([inDiam/2,inDiam/2,0])
     drain_connector();
     
     translate([inDiam/2,inDiam/2,0])
             for (i=[0:4-1]){
-                rotate([0,0,i*360/4 + 12.5])
-                translate([inDiam,0,0])
+                rotate([0,0,i*360/4 + 45])
+                translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
                 drain_connector();
             }
 }
@@ -93,21 +94,19 @@ module inPot(){
 module drain_connector(){
     //V
     color("red")
-    translate([inDiam/2,inDiam/2,thickness])
+    translate([0,0,thickness])
     difference() {
         cylinder(d1=drainId + thickness*2, d2 = drainOd+ thickness*2, h = (drainOd -drainId)/2);
         cylinder(d1=drainId, d2= drainOd, h= (drainOd -drainId)/2);
     }
 
     //Drain outer neck
-    translate([inDiam/2,inDiam/2,0])
     difference(){
         cylinder(d=drainOd+thickness*2, h = (drainOd -drainId)/2 + thickness);
         cylinder(d=drainOd, h = (drainOd -drainId)/2 + thickness);
     }
 
     //Drain inner neck
-    translate([inDiam/2,inDiam/2,0])
     difference() {
         cylinder(d= drainId + thickness*2 , h = thickness);
         cylinder(d= drainId, h=thickness);
