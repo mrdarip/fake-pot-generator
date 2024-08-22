@@ -3,9 +3,12 @@ fakeH = 100;
 thickness= 3;
 l=2;
 diameter = 100;
-drainOd = 15;
+
 drainId = 5;
 tolerance = 0.4;
+
+drainOd = drainId + thickness * 4 + tolerance * 2;
+
 
 $fn=100;
 
