@@ -18,20 +18,14 @@ twoThickness = thickness * 2;
 inDiam = diameter - twoThickness;
 
 difference(){
-    pot();
+    translate([0,0,0])
+    {
+        pot();
 
-    //slice for viewing
-    if($preview){
-        translate([0,0,-0.5])
-        cube([diameter*2,diameter/2,fakeH+1]);
+        translate([thickness,thickness,-realH+fakeH])
+        inPot();
     }
-}
-
-difference(){
-    translate([thickness,thickness,-realH+fakeH])
-    inPot();
-
-    //slice for viewing
+    //slice for previewing
     if($preview){
         translate([0,0,-0.5])
         cube([diameter*2,diameter/2,fakeH+1]);
