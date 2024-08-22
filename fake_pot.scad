@@ -17,7 +17,7 @@ $fn=40;
 twoThickness = thickness * 2;
 inDiam = diameter - twoThickness;
 
-difference(){
+/*difference(){
     translate([0,0,0])
     {
         pot();
@@ -30,8 +30,9 @@ difference(){
         translate([0,0,-0.5])
         cube([diameter*2,diameter/2,fakeH+1]);
     }
-}
+}*/
 
+tunnel();
 
 module pot(){
     difference(){
@@ -149,4 +150,14 @@ module dcylinder(d,h,s){
         cylinder(h=h,d=d);
         cube([d,d-s,h]);
     }
+}
+
+module tunnel(){
+    rotate([-90, 0,0]) {
+        difference(){
+            cylinder(d=thickness*3, h=diameter, $fn=4);
+            cylinder(d=thickness, h=diameter, $fn=4);
+        }
+    }
+    
 }
