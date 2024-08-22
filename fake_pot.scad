@@ -71,15 +71,15 @@ module inPot(){
         color("red")
         translate([inDiam/2,inDiam/2,thickness])
         difference() {
-            cylinder(d1=drainId + thickness*2, d2 = drainOd+ thickness*2, h = drainOd -drainId);
-            cylinder(d1=drainId, d2= drainOd, h= drainOd -drainId);
+            cylinder(d1=drainId + thickness*2, d2 = drainOd+ thickness*2, h = (drainOd -drainId)/2);
+            cylinder(d1=drainId, d2= drainOd, h= (drainOd -drainId)/2);
         }
 
         //Drain outer neck
         translate([inDiam/2,inDiam/2,0])
         difference(){
-            cylinder(d=drainOd+thickness*2, h = drainOd -drainId + thickness);
-            cylinder(d=drainOd, h = drainOd -drainId + thickness);
+            cylinder(d=drainOd+thickness*2, h = (drainOd -drainId)/2 + thickness);
+            cylinder(d=drainOd, h = (drainOd -drainId)/2 + thickness);
         }
 
         //Drain inner neck
