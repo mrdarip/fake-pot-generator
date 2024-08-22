@@ -21,8 +21,10 @@ difference(){
     pot();
 
     //slice for viewing
-    translate([0,0,-0.5])
-    cube([diameter*2,diameter/2,fakeH+1]);
+    if($preview){
+        translate([0,0,-0.5])
+        cube([diameter*2,diameter/2,fakeH+1]);
+    }
 }
 
 difference(){
@@ -30,8 +32,10 @@ difference(){
     inPot();
 
     //slice for viewing
-    translate([0,0,-0.5])
-    cube([diameter*2,diameter/2,fakeH+1]);
+    if($preview){
+        translate([0,0,-0.5])
+        cube([diameter*2,diameter/2,fakeH+1]);
+    }
 }
 
 
