@@ -5,7 +5,7 @@ l=2;
 diameter = 100;
 drainOd = 15;
 drainId = 5;
-tolerance = 0.1;
+tolerance = 0.4;
 
 $fn=100;
 
@@ -45,8 +45,8 @@ module pot(){
     //Drain neck
     translate([diameter/2,diameter/2,0])
     difference(){
-        cylinder(d=drainOd, h = fakeH-realH);
-        cylinder(d=drainOd-thickness, h = fakeH-realH);
+        cylinder(d=drainOd-tolerance, h = fakeH-realH);
+        cylinder(d=drainId+thickness * 2 + tolerance, h = fakeH-realH);
     }
 }
 
@@ -71,14 +71,14 @@ module inPot(){
         color("red")
         translate([inDiam/2,inDiam/2,0])
         difference() {
-            cylinder(d1=drainId + thickness, d2 = drainOd+ thickness, h = drainOd -drainId);
+            cylinder(d1=drainId + thickness*2, d2 = drainOd+ thickness*2, h = drainOd -drainId);
             cylinder(d1=drainId, d2= drainOd, h= drainOd -drainId);
         }
 
         //Drain neck
         translate([inDiam/2,inDiam/2,0])
         difference(){
-            cylinder(d=drainOd+thickness, h = drainOd -drainId);
+            cylinder(d=drainOd+thickness*2, h = drainOd -drainId);
             cylinder(d=drainOd, h = drainOd -drainId);
         }
 
