@@ -21,7 +21,7 @@ difference(){
 }
 
 difference(){
-    translate([thickness+tolerance/2,thickness+tolerance/2,-realH+fakeH])
+    translate([thickness,thickness,-realH+fakeH])
     inPot();
 
     //slice for viewing
@@ -54,10 +54,11 @@ module inPot(){
 
     //pot with hole
     difference(){
+        translate([tolerance,tolerance,0])
         dcylinder(h = realH, d = inDiam-tolerance*2,s = l);
 
-        translate([thickness,thickness,thickness])
-            dcylinder(h = realH, d = inDiam - twoThickness, s= l);
+        translate([thickness+tolerance,thickness+tolerance,thickness])
+            dcylinder(h = realH, d = inDiam - twoThickness -tolerance*2, s= l);
 
 
         //drain hole
