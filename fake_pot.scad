@@ -12,7 +12,7 @@ nHoles = 6;
 drainOd = drainId + thickness * 4 + tolerance * 2;
 
 
-$fn=100;
+$fn=40;
 
 twoThickness = thickness * 2;
 inDiam = diameter - twoThickness;
@@ -67,23 +67,25 @@ module pot(){
 }
 
 module drain_downpipe(){
+    //small pipe
     translate([0,0,fakeH-realH])
     difference(){
         cylinder(d=drainOd - tolerance, h = thickness);
         cylinder(d=drainId+thickness * 2 + tolerance , h = thickness);
     }
 
-    translate([0,0,fakeH-realH - (drainOd -drainId)/2])
+    //V
+    translate([0,0,fakeH-realH - (drainOd - tolerance-thickness*2 -drainId)/2])
     difference() {
-        cylinder(d1=drainId+thickness*2,d2= drainOd - tolerance, h = (drainOd -drainId)/2);
-        cylinder(d1=drainId,d2= drainOd - tolerance-thickness*2, h = (drainOd -drainId)/2);
+        cylinder(d1=drainId+thickness*2,d2= drainOd - tolerance, h = (drainOd - tolerance-thickness*2 -drainId)/2);
+        cylinder(d1=drainId,d2= drainOd - tolerance-thickness*2, h = (drainOd - tolerance-thickness*2 -drainId)/2);
 
     }
     
-
+    //large pipe
     difference(){
-        cylinder(d=drainId+thickness*2, h = fakeH-realH - (drainOd -drainId)/2);
-        cylinder(d=drainId , h = fakeH-realH - (drainOd -drainId)/2);
+        cylinder(d=drainId+thickness*2, h = fakeH-realH - (drainOd - tolerance-thickness*2 -drainId)/2);
+        cylinder(d=drainId , h = fakeH-realH - (drainOd - tolerance-thickness*2 -drainId)/2);
     }
 }
 
@@ -96,10 +98,7 @@ module inPot(){
         translate([thickness+tolerance,thickness+tolerance,thickness])
             dcylinder(h = realH, d = inDiam - twoThickness -tolerance*2, s= l);
 
-
         //drain hole
-
-        
         translate([inDiam/2,inDiam/2,-tolerance/2]){
             cylinder(h = thickness+tolerance*2, d = drainOd);
 
