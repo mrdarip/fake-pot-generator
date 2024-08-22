@@ -42,9 +42,16 @@ module pot(){
         translate([thickness,thickness,thickness])
             dcylinder(h = fakeH, d = inDiam, s= l);
 
-            //drain hole
+        //drain hole
         translate([diameter/2,diameter/2,-tolerance/2])
             cylinder(h = thickness+tolerance, d = drainOd-thickness);
+
+translate([diameter/2,diameter/2,-tolerance/2])
+        for (i=[0:nHoles-1]){
+            rotate([0,0,i*360/nHoles])
+            translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
+            cylinder(h = thickness+tolerance, d = drainOd-thickness);
+        }
     }
 
     translate([diameter/2,diameter/2,0])
