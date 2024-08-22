@@ -42,27 +42,28 @@ module pot(){
         translate([thickness,thickness,thickness])
             dcylinder(h = fakeH, d = inDiam, s= l);
 
-        //drain hole
-        translate([diameter/2,diameter/2,-tolerance/2])
+        //draining holes
+        translate([diameter/2,diameter/2,-tolerance/2]){
             cylinder(h = thickness+tolerance, d = drainOd-thickness);
 
-translate([diameter/2,diameter/2,-tolerance/2])
-        for (i=[0:nHoles-1]){
-            rotate([0,0,i*360/nHoles])
-            translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
-            cylinder(h = thickness+tolerance, d = drainOd-thickness);
+
+            for (i=[0:nHoles-1]){
+                rotate([0,0,i*360/nHoles])
+                translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
+                cylinder(h = thickness+tolerance, d = drainOd-thickness);
+            }
         }
     }
 
-    translate([diameter/2,diameter/2,0])
+    translate([diameter/2,diameter/2,0]){
         drain_downpipe();
 
-    translate([diameter/2,diameter/2,0])
         for (i=[0:nHoles-1]){
             rotate([0,0,i*360/nHoles])
                 translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
             drain_downpipe();
         }
+    }
 }
 
 module drain_downpipe(){
@@ -98,15 +99,15 @@ module inPot(){
         
     }
 
-    translate([inDiam/2,inDiam/2,0])
+    translate([inDiam/2,inDiam/2,0]){
         drain_connector();
     
-    translate([inDiam/2,inDiam/2,0])
         for (i=[0:nHoles-1]){
             rotate([0,0,i*360/nHoles])
             translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
             drain_connector();
         }
+    }
 }
 
 module drain_connector(){
