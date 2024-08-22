@@ -45,8 +45,8 @@ module pot(){
     //Drain neck
     translate([diameter/2,diameter/2,0])
     difference(){
-        cylinder(d=drainOd-tolerance, h = fakeH-realH + thickness);
-        cylinder(d=drainId+thickness * 2 + tolerance, h = fakeH-realH + thickness);
+        cylinder(d=drainOd-tolerance*2, h = fakeH-realH + thickness);
+        cylinder(d=drainId+thickness * 2 , h = fakeH-realH + thickness);
     }
 }
 
@@ -72,7 +72,7 @@ module inPot(){
         color("red")
         translate([inDiam/2,inDiam/2,thickness])
         difference() {
-            cylinder(d1=drainId + thickness*2, d2 = drainOd+ thickness*2, h = (drainOd -drainId)/2);
+            cylinder(d1=drainId + thickness*2 - tolerance * 2, d2 = drainOd+ thickness*2, h = (drainOd -drainId)/2);
             cylinder(d1=drainId, d2= drainOd, h= (drainOd -drainId)/2);
         }
 
@@ -86,7 +86,7 @@ module inPot(){
         //Drain inner neck
         translate([inDiam/2,inDiam/2,0])
         difference() {
-            cylinder(d= drainId + thickness*2, h = thickness);
+            cylinder(d= drainId + thickness*2 - tolerance*2, h = thickness);
             cylinder(d= drainId, h=thickness);
         }
 
