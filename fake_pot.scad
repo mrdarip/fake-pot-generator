@@ -67,9 +67,20 @@ module pot(){
 }
 
 module drain_downpipe(){
+    translate([0,0,fakeH-realH])
     difference(){
-        cylinder(d=drainOd - tolerance, h = fakeH-realH + thickness);
-        cylinder(d=drainId+thickness * 2 + tolerance , h = fakeH-realH + thickness);
+        cylinder(d=drainOd - tolerance, h = thickness);
+        cylinder(d=drainId+thickness * 2 + tolerance , h = thickness);
+    }
+
+    
+    difference(){
+        cylinder(d1=drainId, h = (drainOd -drainId)/2);
+    }
+
+    difference(){
+        cylinder(d=drainOd - tolerance, h = fakeH-realH);
+        cylinder(d=drainId+thickness * 2 + tolerance , h = fakeH-realH);
     }
 }
 
