@@ -21,7 +21,7 @@ difference(){
 }
 
 difference(){
-    translate([thickness,thickness,-realH+fakeH])
+    translate([thickness+tolerance/2,thickness+tolerance/2,-realH+fakeH])
     inPot();
 
     //slice for viewing
@@ -45,8 +45,8 @@ module pot(){
     //Drain neck
     translate([diameter/2,diameter/2,0])
     difference(){
-        cylinder(d=drainOd-tolerance, h = fakeH-realH);
-        cylinder(d=drainId+thickness * 2 + tolerance, h = fakeH-realH);
+        cylinder(d=drainOd-tolerance, h = fakeH-realH + thickness);
+        cylinder(d=drainId+thickness * 2 + tolerance, h = fakeH-realH + thickness);
     }
 }
 
@@ -54,7 +54,7 @@ module inPot(){
 
     //pot with hole
     difference(){
-        dcylinder(h = realH, d = inDiam-tolerance,s = l);
+        dcylinder(h = realH, d = inDiam-tolerance*2,s = l);
 
         translate([thickness,thickness,thickness])
             dcylinder(h = realH, d = inDiam - twoThickness, s= l);
@@ -62,24 +62,31 @@ module inPot(){
 
         //drain hole
         translate([inDiam/2,inDiam/2,-tolerance/2])
-            cylinder(h = thickness+tolerance, d = drainOd);
+            cylinder(h = thickness+tolerance*2, d = drainOd);
     }
 
 
     //drain connector
         //V
         color("red")
-        translate([inDiam/2,inDiam/2,0])
+        translate([inDiam/2,inDiam/2,thickness])
         difference() {
             cylinder(d1=drainId + thickness*2, d2 = drainOd+ thickness*2, h = drainOd -drainId);
             cylinder(d1=drainId, d2= drainOd, h= drainOd -drainId);
         }
 
-        //Drain neck
+        //Drain outer neck
         translate([inDiam/2,inDiam/2,0])
         difference(){
-            cylinder(d=drainOd+thickness*2, h = drainOd -drainId);
-            cylinder(d=drainOd, h = drainOd -drainId);
+            cylinder(d=drainOd+thickness*2, h = drainOd -drainId + thickness);
+            cylinder(d=drainOd, h = drainOd -drainId + thickness);
+        }
+
+        //Drain inner neck
+        translate([inDiam/2,inDiam/2,0])
+        difference() {
+            cylinder(d= drainId + thickness*2, h = thickness);
+            cylinder(d= drainId, h=thickness);
         }
 
     
