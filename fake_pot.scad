@@ -17,22 +17,33 @@ $fn=40;
 twoThickness = thickness * 2;
 inDiam = diameter - twoThickness;
 
-/*difference(){
+difference(){
     translate([0,0,0])
     {
-        pot();
+        difference(){
+            pot();
+
+            translate([diameter/2,diameter/2,0])
+            {
+                tunnel_drill();
+            }
+        }
+
+        translate([diameter/2,diameter/2,0])
+            {
+                tunnel();
+            }
 
         translate([thickness,thickness,-realH+fakeH])
         inPot();
     }
+
     //slice for previewing
     if($preview){
         translate([0,0,-0.5])
         cube([diameter*2,diameter/2,fakeH+1]);
     }
-}*/
-
-tunnel();
+}
 
 module pot(){
     difference(){
@@ -162,5 +173,7 @@ module tunnel(){
 }
 
 module tunnel_drill(){
-    cylinder(d=thickness*3, h=diameter, $fn=4, center=true);
+    rotate([-90, 0,0]) {
+        cylinder(d=thickness*3, h=diameter, $fn=4, center=true);
+    }
 }
