@@ -37,26 +37,20 @@ tunnel();
 
 module pot(){
     difference(){
-        translate([0,0,0]){
-            dcylinder(h = fakeH, d = diameter,s = l);
-            translate([diameter/2,diameter/2,0])
-            {
-                tunnel();
-            }
-        }
+        dcylinder(h = fakeH, d = diameter,s = l);
 
         translate([thickness,thickness,thickness])
             dcylinder(h = fakeH, d = inDiam, s= l);
 
         //draining holes
         translate([diameter/2,diameter/2,-tolerance/2]){
-            cylinder(h = thickness+tolerance, d = drainId+thickness*2);
+            cylinder(h = thickness+tolerance, d = drainId);
 
 
             for (i=[0:nHoles-1]){
                 rotate([0,0,i*360/nHoles])
                 translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
-                cylinder(h = thickness+tolerance, d = drainId+thickness*2);
+                cylinder(h = thickness+tolerance, d = drainId);
             }
         }
 
@@ -94,7 +88,9 @@ module drain_downpipe(){
     }
     
     //large pipe
+    translate([0,0,thickness])
     difference(){
+        //thickness should be substracted to the height to remove foot resting
         cylinder(d=drainId+thickness*2, h = fakeH-realH - (drainOd - tolerance-thickness*2 -drainId)/2);
         cylinder(d=drainId , h = fakeH-realH - (drainOd - tolerance-thickness*2 -drainId)/2);
     }
@@ -177,6 +173,6 @@ module tunnel(){
 
 module tunnel_drill(){
     rotate([-90, 0,0]) {
-        cylinder(d=thickness*3, h=diameter, $fn=4, center=true);
+            cylinder(d=thickness, h=diameter, $fn=4, center=true);
     }
 }
