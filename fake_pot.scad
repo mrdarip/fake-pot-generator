@@ -155,9 +155,12 @@ module dcylinder(d,h,s){
 module tunnel(){
     rotate([-90, 0,0]) {
         difference(){
-            cylinder(d=thickness*3, h=diameter, $fn=4);
-            cylinder(d=thickness, h=diameter, $fn=4);
+            cylinder(d=thickness*3, h=diameter, $fn=4, center=true);
+            cylinder(d=thickness, h=diameter+tolerance, $fn=4, center=true);
         }
     }
-    
+}
+
+module tunnel_drill(){
+    cylinder(d=thickness*3, h=diameter, $fn=4, center=true);
 }
