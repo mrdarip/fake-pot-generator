@@ -45,6 +45,8 @@ difference(){
     }
 }
 
+tunnel();
+
 module pot(){
     difference(){
         dcylinder(h = fakeH, d = diameter,s = l);
@@ -167,7 +169,9 @@ module tunnel(){
     rotate([-90, 0,0]) {
         difference(){
             cylinder(d=thickness*3, h=diameter, $fn=4, center=true);
-            cylinder(d=thickness, h=diameter+tolerance, $fn=4, center=true);
+            cylinder(d=thickness, h=diameter, $fn=4, center=true);
+            translate([0,thickness*0.75 ,0])
+            cube([thickness*3, thickness*1.5, diameter], center=true);
         }
     }
 }
