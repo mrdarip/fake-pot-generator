@@ -8,11 +8,12 @@ drainId = 5;
 tolerance = 0.4;
 
 nHoles = 6;
+debugging = true;
 
 drainOd = drainId + thickness * 4 + tolerance * 2;
 
 
-$fn=40;
+$fn=25;
 
 twoThickness = thickness * 2;
 inDiam = diameter - twoThickness;
@@ -27,13 +28,11 @@ difference(){
     }
 
     //slice for previewing
-    if($preview){
+    if($preview || debugging){
         translate([0,0,-0.5])
         cube([diameter*2,diameter/2,fakeH+1]);
     }
 }
-
-tunnel();
 
 module pot(){
     difference(){
@@ -55,7 +54,8 @@ module pot(){
         }
 
         translate([diameter/2,diameter/2,0])
-        {
+        for (i=[0:nHoles-1]){
+            rotate([0,0,i*360/nHoles+90])
             tunnel_drill();
         }
     }
