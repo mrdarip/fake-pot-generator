@@ -20,19 +20,7 @@ inDiam = diameter - twoThickness;
 difference(){
     translate([0,0,0])
     {
-        difference(){
-            pot();
-
-            translate([diameter/2,diameter/2,0])
-            {
-                tunnel_drill();
-            }
-        }
-
-        translate([diameter/2,diameter/2,0])
-            {
-                tunnel();
-            }
+        pot();
 
         translate([thickness,thickness,-realH+fakeH])
         inPot();
@@ -49,8 +37,14 @@ tunnel();
 
 module pot(){
     difference(){
-        dcylinder(h = fakeH, d = diameter,s = l);
-        
+        translate([0,0,0]){
+            dcylinder(h = fakeH, d = diameter,s = l);
+            translate([diameter/2,diameter/2,0])
+            {
+                tunnel();
+            }
+        }
+
         translate([thickness,thickness,thickness])
             dcylinder(h = fakeH, d = inDiam, s= l);
 
@@ -64,6 +58,11 @@ module pot(){
                 translate([(inDiam-tolerance*2-thickness*2)/3,0,0])
                 cylinder(h = thickness+tolerance, d = drainId+thickness*2);
             }
+        }
+
+        translate([diameter/2,diameter/2,0])
+        {
+            tunnel_drill();
         }
     }
 
